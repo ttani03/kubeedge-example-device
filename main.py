@@ -2,12 +2,15 @@
 
 import argparse
 import json
+import time
 
 import paho.mqtt.client as mqtt
 
 DEVICE_NAME = "led-01"
 DOC_TOPIC = "$hw/events/device/" + DEVICE_NAME + "/twin/update/document"
 UPDATE_TOPIC = "$hw/events/device/" + DEVICE_NAME + "/twin/update"
+
+DELAY = 10
 
 power = "INIT"
 
@@ -31,8 +34,10 @@ def on_message(client, userdata, msg):
         power = power_cur
         print("Changed actual power status: " + power)
         msg = {"twin": {"power": {"actual": {"value": power}}}}
+        print("Reporting actual power status. Wait for {} sec.".format(str(DELAY)))
+        time.sleep(DELAY)
         client.publish(UPDATE_TOPIC, json.dumps(msg))
-        print("Reported to cloud")
+        print("Reported")
 
 
 def main():
