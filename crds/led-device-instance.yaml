@@ -1,0 +1,24 @@
+apiVersion: devices.kubeedge.io/v1alpha2
+kind: Device
+metadata:
+  name: led-01
+  labels:
+    description: LED
+    model: led-dm
+spec:
+  deviceModelRef:
+    name: led-dm
+  nodeSelector:
+    nodeSelectorTerms:
+    - matchExpressions:
+      - key: ''
+        operator: In
+        values:
+        - edge-01
+status:
+  twins:
+    - propertyName: power
+      desired:
+        metadata:
+          type: string
+        value: 'OFF'

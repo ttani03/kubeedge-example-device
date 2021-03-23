@@ -1,0 +1,13 @@
+apiVersion: devices.kubeedge.io/v1alpha2
+kind: DeviceModel
+metadata:
+ name: led-dm
+ namespace: default
+spec:
+ properties:
+  - name: power
+    description: Indicates whether the led light is ON/OFF
+    type:
+      string:
+        accessMode: ReadWrite
+        defaultValue: 'OFF'
